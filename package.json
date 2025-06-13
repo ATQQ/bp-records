@@ -10,7 +10,12 @@
     "build:github": "GITHUB_PAGES=true vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "preview:github": "GITHUB_PAGES=true vite preview"
+    "preview:github": "GITHUB_PAGES=true vite build && vite preview",
+    "docker:build": "docker build -t bp-records .",
+    "docker:run": "docker run -p 3000:80 bp-records",
+    "docker:dev": "docker-compose --profile dev up --build",
+    "docker:prod": "docker-compose up --build",
+    "docker:stop": "docker-compose down"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.6.0",

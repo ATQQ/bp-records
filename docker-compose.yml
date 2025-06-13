@@ -1,0 +1,37 @@
+services:
+  # 生产环境服务
+  bp-records:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    ports:
+      - "3000:80"
+    restart: unless-stopped
+    container_name: bp-records-app
+    environment:
+      - NODE_ENV=production
+    networks:
+      - bp-records-network
+
+  # 开发环境服务
+  bp-records-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    container_name: bp-records-dev
+    networks:
+      - bp-records-network
+    profiles:
+      - dev
+
+networks:
+  bp-records-network:
+    driver: bridge
